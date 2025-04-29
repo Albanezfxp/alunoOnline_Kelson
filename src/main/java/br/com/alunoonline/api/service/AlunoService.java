@@ -3,7 +3,9 @@ package br.com.alunoonline.api.service;
 import br.com.alunoonline.api.model.Aluno;
 import br.com.alunoonline.api.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,23 @@ public class AlunoService {
         }
         alunoRepository.delete(alunoDeleted.get());
         return "Aluno " + alunoDeleted.get().getName() + " deleteado";
+    }
+
+    public void update(Long id, Aluno aluno) {
+        Optional<Aluno> studentsInBd = alunoRepository.findById(id);
+
+        if(studentsInBd.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found");
+        }
+
+        Aluno studentUpdated = studentsInBd.get();
+
+        studentUpdated.setName(aluno.getName());
+        studentUpdated.setCpf(aluno.getCpf());
+        studentUpdated.setEmail(aluno.getEmail());
+
+        alunoRepository.save(studentUpdated);
+
     }
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/professor")
+@RequestMapping("/professores")
 public class ProfessorController {
 
 
@@ -39,6 +39,12 @@ public class ProfessorController {
     @ResponseStatus(HttpStatus.OK)
     public String deletedProfessor(@PathVariable Long id) {
         return professorService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updatedProfessor(@PathVariable Long id, @RequestBody Professor professor){
+        professorService.update(id, professor);
     }
 
 

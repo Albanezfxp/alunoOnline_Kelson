@@ -5,7 +5,9 @@ import br.com.alunoonline.api.model.Professor;
 import br.com.alunoonline.api.repository.AlunoRepository;
 import br.com.alunoonline.api.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,22 @@ public class ProfessorService {
         }
         professorRepository.delete(professorDeleted.get());
         return "Professor: " + professorDeleted.get().getName() + " deletado.";
+    }
+    
+    public void update(Long id, Professor professor) {
+        Optional<Professor> professorId = professorRepository.findById(id);
+        
+        if (professorId.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor not found");
+        }
+        
+        Professor professorUpdated = professorId.get();
+
+        professorUpdated.setName(professor.getName());
+        professorUpdated.setCpf(professor.getCpf());
+        professorUpdated.setEmail(professor.getEmail());
+
+        professorRepository.save(professorUpdated);
     }
 
 }

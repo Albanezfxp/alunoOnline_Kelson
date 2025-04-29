@@ -1,6 +1,7 @@
 package br.com.alunoonline.api.controller;
 
 import br.com.alunoonline.api.model.Aluno;
+import br.com.alunoonline.api.model.Professor;
 import br.com.alunoonline.api.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,11 @@ public class AlunoController {
     @ResponseStatus(HttpStatus.OK)
     public String deleteStudents(@PathVariable Long id) {
         return alunoService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updatedAluno(@PathVariable Long id, @RequestBody Aluno aluno){
+        alunoService.update(id, aluno);
     }
 }
