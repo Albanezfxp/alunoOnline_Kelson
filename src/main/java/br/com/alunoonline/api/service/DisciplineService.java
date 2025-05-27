@@ -15,6 +15,8 @@ import java.util.Optional;
 public class DisciplineService {
     @Autowired
     DisciplineRepository DisciplineRepository;
+    @Autowired
+    private DisciplineRepository disciplineRepository;
 
     public List<Discipline> getAllDiscipline() {
         return DisciplineRepository.findAll();
@@ -58,5 +60,9 @@ public class DisciplineService {
         DisciplineRepository.save(disciplineDeleted);
 
     }
+    public List<Discipline> listarDisciplinaDoProf(Long professorId){
+        return disciplineRepository.findByProfessorId(professorId);
+    }
+
 
 }
