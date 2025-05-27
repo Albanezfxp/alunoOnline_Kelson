@@ -2,6 +2,7 @@ package br.com.alunoonline.api.controller;
 
 import br.com.alunoonline.api.model.Professor;
 import br.com.alunoonline.api.service.ProfessorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/professores")
+@Tag(name="Professores", description = "Endpoints para gerenciar professores")
+
 public class ProfessorController {
 
 
